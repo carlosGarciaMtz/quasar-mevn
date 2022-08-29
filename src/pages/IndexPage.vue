@@ -1,17 +1,22 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    >
+  <q-page padding>
+    <q-btn @click="createLink">Crear Link</q-btn>
   </q-page>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup>
+import { ref } from "vue";
+import { useLinkstore } from "../stores/link-store"
 
-export default defineComponent({
-  name: 'IndexPage'
-})
+const linkStore = useLinkstore();
+
+const url = ref('holis')
+
+const createLink = async () => {
+  try {
+    linkStore.createLink(url.value)
+  } catch (error) {
+    console.table(error)
+  }
+}
 </script>
